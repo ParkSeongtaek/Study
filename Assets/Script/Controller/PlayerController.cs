@@ -107,12 +107,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("OnTriggerEnter With " + collision.transform.name);
+        Debug.Log("OnCollisionEnter With " + collision.transform.name);
 
     }
     private void OnCollisionExit(Collision collision)
     {
-        Debug.Log("OnTriggerExit With " + collision.transform.name);
+        Debug.Log("OnCollisionExit With " + collision.transform.name);
 
     }
     private void OnCollisionStay(Collision collision)
@@ -155,18 +155,18 @@ public class PlayerController : MonoBehaviour
 
         float XMove = Input.GetAxis("Horizontal");
         float ZMove = Input.GetAxis("Vertical");
-
-        if(XMove !=0 || ZMove != 0)
+        
+        if (XMove !=0 || ZMove != 0)
         {
             Debug.Log("XMove " + XMove + "ZMove " + ZMove);
         }
 
 
-        speed = 10;
+        //speed = 10;
         Vector3 getVel = new Vector3(XMove, 0, ZMove) * speed;
         GameManager.instance.player.GetComponent<Rigidbody>().velocity = getVel;
 
-
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
@@ -197,11 +197,12 @@ public class PlayerController : MonoBehaviour
     
     public void Jump()
     {
+        
         GameManager.instance.player.GetComponent<Rigidbody>().AddForce(transform.up * JumpP);
 
     }
 
-
+    
 
     public void W_onoff(bool val)
     {

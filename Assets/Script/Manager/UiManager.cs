@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UiManager 
 {
+
+    
     public void Init()
     {
         //ÃÊ±â ¼Â

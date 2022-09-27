@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
-{
+{   
+
+    
+
+
     static GameManager _instance;
     public static GameManager instance { get { Init(); return _instance; } }
 
@@ -43,10 +47,12 @@ public class GameManager : MonoBehaviour
             _instance._soundManager.Init();
             _instance._uiManager.Init();
             _instance._inputManager.Init();
+
+
             if (_instance._player == null)
             {
                 _instance._player = Resources.Load<GameObject>("Prefab/Player");
-                _instance._player = Instantiate(_instance._player, new Vector3(0, 0, 0), new Quaternion());
+                _instance._player = Instantiate(_instance._player, Vector3.zero, new Quaternion());
             }
         }
     }

@@ -13,12 +13,13 @@ public class InputManager
     
     }
 
+
     public void InputUpdate()
     {
         if (GameManager.instance.player != null)
         {
-            //GameManager.instance.player.GetComponent<PlayerController>().MoveUpdateKeyCode();
-            GameManager.instance.player.GetComponent<PlayerController>().MoveUpdateVelocity();
+            GameManager.instance.player.GetComponent<PlayerController>().MoveUpdateKeyCode();
+            //GameManager.instance.player.GetComponent<PlayerController>().MoveUpdateVelocity();
 
         }
     }
