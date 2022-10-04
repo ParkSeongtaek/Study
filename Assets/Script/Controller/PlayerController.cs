@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     float speed = 0.3f;
     float JumpP = 500f;
-
+    bool move = false;
     bool _W, _A, _S, _D;
     Animator anim;
     
@@ -163,28 +163,38 @@ public class PlayerController : MonoBehaviour
         float XMove = Input.GetAxis("Horizontal");
         float ZMove = Input.GetAxis("Vertical");
         
-        if (XMove !=0 || ZMove != 0)
-        {
-            Debug.Log("XMove " + XMove + "ZMove " + ZMove);
-        }
-
         
+        //CrossFade
         Vector3 getVel = new Vector3(XMove, 0, ZMove) * speed;
-        if (getVel != Vector3.zero)
+        if (getVel != Vector3.zero && !move)
         {
             anim.SetFloat("Speed", 1f);
+            //anim.CrossFade("RUN",0.5f ,0, 1.0f);
+            anim.CrossFade("RUN", 0.3f, (int)PlayMode.StopSameLayer);
+            //anim.Play("RUN");
+            Debug.Log("RUN");
+            move = true;
+            
 
         }
-        else
+        
+        else if(getVel == Vector3.zero && move)
         {
             anim.SetFloat("Speed", 0f);
+            anim.CrossFade("Wait", 0.5f, 0);
+            Debug.Log("Wait");
+
+            move = false;
         }
+        
         GameManager.instance.player.transform.position += getVel;
 
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
+            anim.Play("JUMP");
+
         }
 
     }
