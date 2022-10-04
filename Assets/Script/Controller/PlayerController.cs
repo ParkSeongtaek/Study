@@ -6,10 +6,17 @@ public class PlayerController : MonoBehaviour
 {
 
 
-    float speed = 0.03f;
+    float speed = 0.3f;
     float JumpP = 500f;
 
     bool _W, _A, _S, _D;
+    Animator anim;
+    
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+
+    }
 
     public bool W { get { return _W; } 
         set {
@@ -161,10 +168,18 @@ public class PlayerController : MonoBehaviour
             Debug.Log("XMove " + XMove + "ZMove " + ZMove);
         }
 
-
-        //speed = 10;
+        
         Vector3 getVel = new Vector3(XMove, 0, ZMove) * speed;
-        GameManager.instance.player.GetComponent<Rigidbody>().velocity = getVel;
+        if (getVel != Vector3.zero)
+        {
+            anim.SetFloat("Speed", 1f);
+
+        }
+        else
+        {
+            anim.SetFloat("Speed", 0f);
+        }
+        GameManager.instance.player.transform.position += getVel;
 
         
         if (Input.GetKeyDown(KeyCode.Space))
@@ -176,25 +191,23 @@ public class PlayerController : MonoBehaviour
 
     public void MoveKeyW()
     {
-        GameManager.instance.player.transform.position += new Vector3(0, 0, speed);
-
+        MoveW();
     }
     public void MoveKeyA()
     {
-        GameManager.instance.player.transform.position += new Vector3(-speed, 0, 0);
-
+        MoveA();
     }
     public void MoveKeyS()
     {
-        GameManager.instance.player.transform.position += new Vector3(0, 0, -speed);
+        MoveS();
 
     }
     public void MoveKeyD()
     {
-        GameManager.instance.player.transform.position += new Vector3(speed, 0, 0);
+        MoveD();
 
     }
-    
+
     public void Jump()
     {
         
@@ -202,7 +215,26 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    
+    void MoveW()
+    {
+        GameManager.instance.player.transform.position += new Vector3(0, 0, speed);
+
+    }
+    void MoveA()
+    {
+        GameManager.instance.player.transform.position += new Vector3(-speed, 0, 0);
+
+    }
+    void MoveS()
+    {
+        GameManager.instance.player.transform.position += new Vector3(0, 0, -speed);
+
+    }
+    void MoveD()
+    {
+        GameManager.instance.player.transform.position += new Vector3(speed, 0, 0);
+
+    }
 
     public void W_onoff(bool val)
     {
